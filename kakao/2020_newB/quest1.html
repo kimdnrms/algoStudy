@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript</title>
+</head>
+
+<body>
+  <script>
+    // Queset Description : 문자열 압축
+    // https://tech.kakao.com/2019/10/02/kakao-blind-recruitment-2020-round1/
+    // https://programmers.co.kr/learn/courses/30/lessons/60057
+    // test input & description
+    var testdata1 = "aabbaccc";
+    var testdata2 = "ababcdcdababcdcd";
+    var testdata3 = "abcabcdede";
+    var testdata4 = "abcabcabcabcdededededede";
+    var testdata5 = "xababcdcdababcdcd";
+
+    console.log('............testdata1', solution(testdata1));
+    // 2a2ba3c = 7(1)
+    console.log('............testdata2', solution(testdata2));
+    // 2ababcdcd = 9(8)
+    console.log('............testdata3', solution(testdata3));
+    // 2abcdede = 8(3)
+    console.log('............testdata4', solution(testdata4));
+    // abcabcabcabc6de = 15(2) 
+    // 4abcdededededede = 16(3)
+    // abcabcabcabc3dede = 17(4)
+    // 2abcabc2dedede = 14(6)  
+    console.log('............testdata5', solution(testdata5));
+    // xababcdcdababcdcd = 17 (x)
+
+
+    function cutString(num, str) {
+      var temp = '';
+      var eq = 1;
+      var originStr = str;
+
+      console.log('......originStr', originStr);
+      console.log('......num', num);
+
+      for (var i = 0; i < originStr.length; i += num) {
+        str = originStr.substring(i, originStr.length);
+        console.log('......str', str);
+        var a = str.substr(0, num);
+        var b = str.substr(num, num);
+        console.log('......a', a);
+        console.log('......b', b);
+        if (a === b) {
+          eq++;
+        } else {
+          if (eq !== 1) {
+            temp += eq = "";
+          }
+          temp += a;
+          eq = 1;
+        }
+
+        console.log('......temp', temp);
+        console.log('......eq', eq);
+      }
+
+      return temp;
+    }
+
+    function solution(s) {
+      console.log('............s', s);
+      var min = cutString(1, s).length;
+      console.log('..min', min);
+      for (var i = 1; i < s.length - 1; i++) {
+        var temp = cutString(i + 1, s).length;
+        console.log('..temp', temp);
+        if (min > temp) {
+          min = temp;
+        }
+      }
+      return min;
+    }
+
+  </script>
+</body>
+
+</html>
